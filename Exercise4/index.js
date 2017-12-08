@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { View, FlatList, SafeAreaView, StatusBar } from 'react-native';
+import { List, ListItem } from 'react-native-elements';
 
 class Challenge3 extends Component {
   state = {
@@ -12,8 +14,29 @@ class Challenge3 extends Component {
       .catch(error => alert(error));
   }
 
+  renderItem = ({ item }) => {
+    return (
+      <ListItem
+        title={item.name}
+        subtitle={`Birth Year: ${item.birth_year}`}
+        hideChevron
+      />
+    );
+  }
+
   render() {
-    return null;
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar barStyle="dark-content" />
+        <List containerStyle={{ flex: 1 }}>
+          <FlatList
+            data={this.state.people}
+            renderItem={this.renderItem}
+            keyExtractor={item => item.created}
+          />
+        </List>
+      </SafeAreaView>
+    );
   }
 }
 
