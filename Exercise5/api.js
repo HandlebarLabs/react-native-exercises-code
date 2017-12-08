@@ -5,10 +5,10 @@ const isNetworkConnected = () => {
   if (Platform.OS === 'ios') {
     return new Promise(resolve => {
       const handleFirstConnectivityChangeIOS = isConnected => {
-        NetInfo.isConnected.removeEventListener('change', handleFirstConnectivityChangeIOS);
+        NetInfo.isConnected.removeEventListener('connectionChange', handleFirstConnectivityChangeIOS);
         resolve(isConnected);
       };
-      NetInfo.isConnected.addEventListener('change', handleFirstConnectivityChangeIOS);
+      NetInfo.isConnected.addEventListener('connectionChange', handleFirstConnectivityChangeIOS);
     });
   }
 
@@ -43,10 +43,6 @@ export const getPeople = () => {
         return getLocalData(url);
       }
       return getRemoteData(url);
-    })
-    .then(data => {
-      console.log('data', data);
-      return data;
     })
     .then((data) => {
       saveData(url, data);
