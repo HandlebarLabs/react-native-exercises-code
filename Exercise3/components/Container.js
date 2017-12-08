@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, StatusBar } from 'react-native';
+import { SafeAreaView, StyleSheet, StatusBar, KeyboardAvoidingView } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,6 +11,11 @@ const styles = StyleSheet.create({
 export const Container = ({ children }) => (
   <SafeAreaView style={styles.container}>
     <StatusBar barStyle="light-content" />
-    {children}
+    <KeyboardAvoidingView
+      behavior="position"
+      keyboardVerticalOffset={14}
+    >
+      {children}
+    </KeyboardAvoidingView>
   </SafeAreaView>
 );
