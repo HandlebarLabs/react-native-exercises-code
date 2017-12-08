@@ -1,23 +1,12 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import App from './Exercise1';
+// import App from './Exercise2';
+// import App from './Exercise3';
+// import App from './Exercise4';
+// import App from './Exercise5';
+// import App from './Exercise6';
+// import App from './Exercise7';
+// import App from './Exercise8';
+// import App from './Exercise9';
+// import App from './Exercise10';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
