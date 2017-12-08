@@ -1,4 +1,19 @@
-import { AsyncStorage, NetInfo } from 'react-native';
+import { AsyncStorage, NetInfo, Platform } from 'react-native';
+
+// Necessary because of a bug on iOS https://github.com/facebook/react-native/issues/8615#issuecomment-287977178
+const isNetworkConnected = () => {
+  if (Platform.OS === 'ios') {
+    return new Promise(resolve => {
+      const handleFirstConnectivityChangeIOS = isConnected => {
+        NetInfo.isConnected.removeEventListener('change', handleFirstConnectivityChangeIOS);
+        resolve(isConnected);
+      };
+      NetInfo.isConnected.addEventListener('change', handleFirstConnectivityChangeIOS);
+    });
+  }
+
+  return NetInfo.isConnected.fetch();
+}
 
 const getLocalData = (url) => {
   return AsyncStorage.getItem(url)
@@ -22,13 +37,11 @@ const getRemoteData = (url) => {
 
 export const getPeople = () => {
   const url = 'https://swapi.co/api/people';
-  // TODO: This is broken on iOS https://facebook.github.io/react-native/docs/next/netinfo.html
-  return NetInfo.isConnected.fetch()
+  return isNetworkConnected()
     .then((isConnected) => {
       if (!isConnected) {
         return getLocalData(url);
       }
-
       return getRemoteData(url);
     })
     .then(data => {
